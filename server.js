@@ -68,10 +68,9 @@ wsServer.on('request', function(request) {
 });
 
 // CLient implementation
-var socket;
-var connectionRequest;
 var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
 var client;
+var salesRegister = [];
 
 var buildWsClient = function(){
 	client = new WebSocketClient();
@@ -93,6 +92,9 @@ var buildWsClient = function(){
         connection.on('message', function(message) {
             if (message.type === 'utf8') {
                 console.log("Received: '" + message.utf8Data + "'");
+                messageJson     = JSON.parse(message.utf8Data);
+                var saleValue   = messageJson[0]["value"];
+                console.log("Sale Value: " + saleValue + " €";
             }
         });
     });
