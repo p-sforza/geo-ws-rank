@@ -100,7 +100,7 @@ var buildWsClient = function(){
     return client;
 }
 
-//buildWsClient();
+buildWsClient();
 //client.connect(url, 'echo-protocol');
 
 
