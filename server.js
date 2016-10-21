@@ -82,35 +82,32 @@ var buildWsClient = function(){
         console.log('Connect Error: ' + error.toString());
         //setTimeout(function(){buildWsClient(url)}, 5000);
     });
+    client.on('connect', function(connection) {
+        console.log('WebSocket Client Connected');
+        connection.on('error', function(error) {
+            console.log("Connection Error: " + error.toString());
+            //setTimeout(function(){buildWsClient(url)}, 5000);
+        });
+        connection.on('close', function() {
+            console.log('echo-protocol Connection Closed');
+            //setTimeout(function(){buildWsClient(url)}, 5000);
+        });
+        connection.on('message', function(message) {
+            if (message.type === 'utf8') {
+                console.log("Received: '" + message.utf8Data + "'");
+            }
+        });
+        
+        function sendNumber() {
+            if (connection.connected) {
+                var number = Math.round(Math.random() * 0xFFFFFF);
+                connection.sendUTF(number.toString());
+                setTimeout(sendNumber, 1000);
+            }
+        }
+        //sendNumber();
+    });
 }
-
-
- 
-client.on('connect', function(connection) {
-    console.log('WebSocket Client Connected');
-    connection.on('error', function(error) {
-        console.log("Connection Error: " + error.toString());
-        //setTimeout(function(){buildWsClient(url)}, 5000);
-    });
-    connection.on('close', function() {
-        console.log('echo-protocol Connection Closed');
-        //setTimeout(function(){buildWsClient(url)}, 5000);
-    });
-    connection.on('message', function(message) {
-        if (message.type === 'utf8') {
-            console.log("Received: '" + message.utf8Data + "'");
-        }
-    });
-    
-    function sendNumber() {
-        if (connection.connected) {
-            var number = Math.round(Math.random() * 0xFFFFFF);
-            connection.sendUTF(number.toString());
-            setTimeout(sendNumber, 1000);
-        }
-    }
-    //sendNumber();
-});
 
 buildWsClient();
 //client.connect(url, 'echo-protocol');
