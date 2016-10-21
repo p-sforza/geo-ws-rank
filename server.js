@@ -95,16 +95,9 @@ var buildWsClient = function(){
                 messageJson       = JSON.parse(message.utf8Data);
                 var countryCode   = messageJson[0]["cc"];
                 var saleValue     = messageJson[0]["value"];
-                salesRegisterJson = JSON.parse(salesRegister.utf8Data);
-                
-                var prevIncome  = salesRegisterJson[countryCode];
-                console.log("prevIncome is: " + JSON.stringify(prevIncome));
+                console.log("countryCode is: " + countryCode);
             }
-                	
-                salesRegister[countryCode] = prevIncome + saleValue;
-
-                console.log("Sales Register: " + JSON.stringify(salesRegister));
-            });
+        });
     });
     client.connect(url, 'echo-protocol');
     return client;
