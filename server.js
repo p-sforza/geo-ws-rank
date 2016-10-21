@@ -96,7 +96,7 @@ var buildWsClient = function(){
                 var countryCode   = messageJson[0]["cc"];
                 var saleValue     = messageJson[0]["value"];
                 console.log("countryCode is: " + countryCode);
-            }
+            } 
         });
     });
     client.connect(url, 'echo-protocol');
