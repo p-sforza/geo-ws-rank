@@ -71,20 +71,29 @@ wsServer.on('request', function(request) {
 var socket;
 var connectionRequest;
 var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
+var client;
 
-var client = new WebSocketClient();
+var buildWsClient = function(){
+	var client = new WebSocketClient();
+    console.log ('New ws client built!');
+    client.connect(url, 'echo-protocol');
+    return client;
+}
 
 client.on('connectFailed', function(error) {
     console.log('Connect Error: ' + error.toString());
+    //setTimeout(function(){buildWsClient(url)}, 5000);
 });
  
 client.on('connect', function(connection) {
     console.log('WebSocket Client Connected');
     connection.on('error', function(error) {
         console.log("Connection Error: " + error.toString());
+        //setTimeout(function(){buildWsClient(url)}, 5000);
     });
     connection.on('close', function() {
         console.log('echo-protocol Connection Closed');
+        //setTimeout(function(){buildWsClient(url)}, 5000);
     });
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
@@ -101,8 +110,10 @@ client.on('connect', function(connection) {
     }
     //sendNumber();
 });
- 
-client.connect(url, 'echo-protocol');
+
+buildWsClient();
+//client.connect(url, 'echo-protocol');
+
 
 
 	
