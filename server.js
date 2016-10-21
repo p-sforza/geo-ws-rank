@@ -95,13 +95,9 @@ var buildWsClient = function(){
                 messageJson     = JSON.parse(message.utf8Data);
                 var countryCode = messageJson[0]["cc"];
                 var saleValue   = messageJson[0]["value"];
-                var prevIncome  = function (){
-                	k = JSON.parse(salesRegister);
-                	console.log("k is: " + k);
-                	//z = k.countryCode;
-                	//console.log("Previous Value is: " + z);
-                	return z;
-                }
+                var prevIncome  = JSON.parse(salesRegister);
+                console.log("prevIncome is: " + prevIncome);
+
                 	
                 salesRegister[countryCode] = prevIncome + saleValue;
 
