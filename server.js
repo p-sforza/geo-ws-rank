@@ -77,17 +77,17 @@ var buildWsClient = function(){
     console.log ('New ws client built!');
     client.on('connectFailed', function(error) {
         console.log('Connect Error: ' + error.toString());
-        setTimeout(function(){client.connect(url, 'echo-protocol')}, 5000);
+        setTimeout(function(){buildWsClient()}, 5000);
     });
     client.on('connect', function(connection) {
         console.log('WebSocket Client Connected');
         connection.on('error', function(error) {
             console.log("Connection Error: " + error.toString());
-            setTimeout(function(){client.connect(url, 'echo-protocol')}, 5000);
+            setTimeout(function(){buildWsClient()}, 5000);
         });
         connection.on('close', function() {
             console.log('echo-protocol Connection Closed');
-            setTimeout(function(){client.connect(url, 'echo-protocol')}, 5000);
+            setTimeout(function(){buildWsClient()}, 5000);
         });
         connection.on('message', function(message) {
             if (message.type === 'utf8') {
@@ -95,7 +95,7 @@ var buildWsClient = function(){
                 messageJson     = JSON.parse(message.utf8Data);
                 var countryCode = messageJson[0]["cc"];
                 var saleValue   = messageJson[0]["value"];
-                salesRegister[countryCode] = saleValue;
+                salesRegister[countryCode] = salesRegister[countryCode] + saleValue;
 
                 console.log("Sales Register: " + JSON.stringify(salesRegister));
             }
