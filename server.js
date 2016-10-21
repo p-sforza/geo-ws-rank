@@ -70,7 +70,7 @@ wsServer.on('request', function(request) {
 // CLient implementation
 var socket;
 var connectionRequest;
-var url = "ws://websocket.cloudapps.novalocal:80/ws/";
+var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
 
 var client = new WebSocketClient();
 
