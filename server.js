@@ -78,12 +78,13 @@ var buildWsClient = function(){
     console.log ('New ws client built!');
     client.connect(url, 'echo-protocol');
     return client;
+    client.on('connectFailed', function(error) {
+        console.log('Connect Error: ' + error.toString());
+        //setTimeout(function(){buildWsClient(url)}, 5000);
+    });
 }
 
-client.on('connectFailed', function(error) {
-    console.log('Connect Error: ' + error.toString());
-    //setTimeout(function(){buildWsClient(url)}, 5000);
-});
+
  
 client.on('connect', function(connection) {
     console.log('WebSocket Client Connected');
