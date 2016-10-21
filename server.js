@@ -74,10 +74,8 @@ var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
 var client;
 
 var buildWsClient = function(){
-	var client = new WebSocketClient();
+	client = new WebSocketClient();
     console.log ('New ws client built!');
-    client.connect(url, 'echo-protocol');
-    return client;
     client.on('connectFailed', function(error) {
         console.log('Connect Error: ' + error.toString());
         //setTimeout(function(){buildWsClient(url)}, 5000);
@@ -107,6 +105,8 @@ var buildWsClient = function(){
         }
         //sendNumber();
     });
+    client.connect(url, 'echo-protocol');
+    return client;
 }
 
 buildWsClient();
