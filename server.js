@@ -97,13 +97,12 @@ var buildWsClient = function(){
                 var saleValue   = messageJson[0]["value"];
                 var prevIncome  = JSON.parse(salesRegister);
                 console.log("prevIncome is: " + JSON.stringify(prevIncome));
-
+            }
                 	
                 salesRegister[countryCode] = prevIncome + saleValue;
 
                 console.log("Sales Register: " + JSON.stringify(salesRegister));
-            }
-        });
+            });
     });
     client.connect(url, 'echo-protocol');
     return client;
