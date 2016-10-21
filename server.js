@@ -92,10 +92,12 @@ var buildWsClient = function(){
         connection.on('message', function(message) {
             if (message.type === 'utf8') {
                 console.log("Received: '" + message.utf8Data + "'");
-                messageJson     = JSON.parse(message.utf8Data);
-                var countryCode = messageJson[0]["cc"];
-                var saleValue   = messageJson[0]["value"];
-                var prevIncome  = JSON.parse(salesRegister);
+                messageJson       = JSON.parse(message.utf8Data);
+                var countryCode   = messageJson[0]["cc"];
+                var saleValue     = messageJson[0]["value"];
+                salesRegisterJson = JSON.parse(salesRegister.utf8Data);
+                
+                var prevIncome  = salesRegisterJson[countryCode];
                 console.log("prevIncome is: " + JSON.stringify(prevIncome));
             }
                 	
