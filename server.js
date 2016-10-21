@@ -70,7 +70,7 @@ wsServer.on('request', function(request) {
 // CLient implementation
 var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
 var client;
-var salesRegister = [];
+var salesRegister = {};
 
 var buildWsClient = function(){
 	client = new WebSocketClient();
@@ -95,10 +95,8 @@ var buildWsClient = function(){
                 messageJson     = JSON.parse(message.utf8Data);
                 var countryCode = messageJson[0]["cc"];
                 var saleValue   = messageJson[0]["value"];
-                salesRegister.push ({
-                    "cc": countryCode.toString(),
-                    "value": saleValue.toString()
-                });
+                salesRegister.countryCode = saleValue.toString();
+
                 console.log("Sales Register: " + JSON.stringify(salesRegister));
             }
         });
