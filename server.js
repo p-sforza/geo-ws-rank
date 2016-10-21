@@ -97,10 +97,8 @@ var buildWsClient = function(){
 				var saleValue     = messageJson[0]["value"];
 				console.log("countryCode is: " + countryCode);
 				console.log("saleValue is: " + saleValue);
-				var test = 1 + saleValue;
+				var test = 1 + +saleValue;
 				console.log("test is: " + test);
-
-
 			} 
 		});
 	});
@@ -110,8 +108,3 @@ var buildWsClient = function(){
 
 buildWsClient();
 //client.connect(url, 'echo-protocol');
-
-
-
-
-
