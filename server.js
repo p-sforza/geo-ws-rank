@@ -94,7 +94,7 @@ var buildWsClient = function(){
                 console.log("Received: '" + message.utf8Data + "'");
                 messageJson     = JSON.parse(message.utf8Data);
                 var saleValue   = messageJson[0]["value"];
-                console.log("Sale Value: " + saleValue + " €";
+                console.log("Sale Value: " + saleValue + " €");
             }
         });
     });
