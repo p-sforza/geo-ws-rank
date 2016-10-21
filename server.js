@@ -99,6 +99,8 @@ var buildWsClient = function(){
 				console.log("saleValue is: " + saleValue);
 				var test = 1 + +saleValue;
 				console.log("test is: " + test);
+				salesRegister[countryCode] = saleValue;
+				console.log("Actual income is: " + salesRegister[countryCode]);
 			} 
 		});
 	});
