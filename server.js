@@ -99,7 +99,7 @@ var buildWsClient = function(){
                     "cc": countryCode.toString(),
                     "value": saleValue.toString()
                 });
-                console.log("Sales Register: " + salesRegister);
+                console.log("Sales Register: " + JSON.stringify(salesRegister));
             }
         });
     });
