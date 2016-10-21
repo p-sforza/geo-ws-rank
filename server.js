@@ -93,7 +93,7 @@ var buildWsClient = function(){
             if (message.type === 'utf8') {
                 console.log("Received: '" + message.utf8Data + "'");
                 messageJson     = JSON.parse(message.utf8Data);
-                var countryCode = message[0]["cc"];
+                var countryCode = messageJson[0]["cc"];
                 var saleValue   = messageJson[0]["value"];
                 salesRegister.push ({
                     "cc": countryCode.toString(),
