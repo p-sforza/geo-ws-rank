@@ -29,7 +29,6 @@ function notify() {
 	for(c in requestRegister) 
         requestRegister[c].send(JSON.stringify(salesRegister));
 }
-notify();
  
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
@@ -42,6 +41,7 @@ wsServer.on('request', function(request) {
 
     requestRegister.push(connection);
     console.log("Connection on request: " + connection.remoteAddress);
+    notify();
 
     connection.on('close', function(reasonCode, description) {
         console.log("Connection on close: " + connection.remoteAddress);
