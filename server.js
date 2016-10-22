@@ -25,29 +25,14 @@ function originIsAllowed(origin) {
 requestRegister = [ ];
 
 function notify() {
-	var countryCode = Math.round(Math.random() * 0x64);
-	//var countryColor = "#24179E"; // Country in blue
-	var countryColor = "#f00"; // Country in red!
-	var delay       = Math.round((Math.random() * 2) + 2)*1000;
-	var saleValue   = Math.round((Math.random() * 1000) + 1);
-	var sales       = [];
-
-	sales.push ({
-		"cc": countryCode.toString(),
-		"countryColor": countryColor,
-		"value": saleValue.toString()
-	});
-	console.log((new Date()) + ' Object: ' + JSON.stringify(sales));
-
-	for(c in requestRegister) 
-		//requestRegister[c].send(sales.toString());
-		requestRegister[c].send(JSON.stringify(sales));
-	//console.log((new Date()) + ' Server Send: ' + countryCode.toString());
-	//console.log((new Date()) + ' Server Send: ' + JSON.parse(JSON.stringify(sales)));
-	//Introduce a rand delay
-	setTimeout(notify, delay);
+  console.log((new Date()) + ' Object to send: ' + JSON.stringify(salesRegister));
+  for(c in requestRegister) 
+    //requestRegister[c].send(sales.toString());
+	requestRegister[c].send(JSON.stringify(sales));
+  //Introduce a rand delay
+  setTimeout(notify, delay);
 }
-//notify();
+notify();
 
 wsServer.on('request', function(request) {
 	if (!originIsAllowed(request.origin)) {
@@ -62,7 +47,7 @@ wsServer.on('request', function(request) {
 	requestRegister.push(connection);
 
 	connection.on('close', function(reasonCode, description) {
-		requestRegister = [ ];
+		//requestRegister = [ ];
 		console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
 	});
 });
@@ -95,14 +80,8 @@ var buildWsClient = function(){
 				messageJson       = JSON.parse(message.utf8Data);
 				var countryCode   = messageJson[0]["cc"];
 				var saleValue     = messageJson[0]["value"];
-				console.log("countryCode is: " + countryCode);
-				console.log("saleValue is: " + saleValue);
-				var test = 1 + +saleValue;
-				console.log("test is: " + test);
 				var actualIncome = salesRegister[countryCode] || 0;
-				console.log("!!Actual income is: " + actualIncome);
 				salesRegister[countryCode] = +actualIncome + +saleValue;
-				console.log("!!Now actual income is: " + salesRegister[countryCode]);
 			} 
 		});
 	});
