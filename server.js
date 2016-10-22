@@ -41,7 +41,6 @@ wsServer.on('request', function(request) {
 
     requestRegister.push(connection);
     console.log("Connection on request: " + connection.remoteAddress);
-    notify();
 
     connection.on('close', function(reasonCode, description) {
         console.log("Connection on close: " + connection.remoteAddress);
@@ -50,6 +49,7 @@ wsServer.on('request', function(request) {
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
 });
+notify();
 
 //CLient implementation
 var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
