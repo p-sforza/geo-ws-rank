@@ -29,8 +29,6 @@ function notify() {
   for(c in requestRegister) 
     //requestRegister[c].send(sales.toString());
 	requestRegister[c].send(JSON.stringify(sales));
-  //Introduce a rand delay
-  setTimeout(notify, delay);
 }
 notify();
 
