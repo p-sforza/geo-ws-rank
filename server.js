@@ -1,7 +1,9 @@
 var WebSocketServer = require('websocket').server;
 var WebSocketClient = require('websocket').client;
-
 var http = require('http');
+var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
+var client;
+var salesRegister = {};
 
 var server = http.createServer(function(request, response) {
 	console.log((new Date()) + ' Received request for ' + request.url);
@@ -26,9 +28,12 @@ requestRegister = [ ];
 
 function notify() {
 	console.log((new Date()) + ' Object to send: ' + JSON.stringify(salesRegister));
+	var delay       = Math.round((Math.random() * 2) + 2)*1000;
 	for(c in requestRegister) 
         requestRegister[c].send(JSON.stringify(salesRegister));
+        setTimeout(notify, delay);
 }
+notify();
  
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
@@ -49,12 +54,8 @@ wsServer.on('request', function(request) {
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
 });
-notify();
 
 //CLient implementation
-var url = "ws://geo-ws-rand.demo-websocket.svc:8080";
-var client;
-var salesRegister = {};
 
 var buildWsClient = function(){
 	client = new WebSocketClient();
