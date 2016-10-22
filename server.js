@@ -25,29 +25,30 @@ function originIsAllowed(origin) {
 requestRegister = [ ];
 
 function notify() {
-  console.log((new Date()) + ' Object to send: ' + JSON.stringify(salesRegister));
-  for(c in requestRegister) 
-    //requestRegister[c].send(sales.toString());
-	requestRegister[c].send(JSON.stringify(sales));
+	console.log((new Date()) + ' Object to send: ' + JSON.stringify(salesRegister));
+	for(c in requestRegister) 
+        requestRegister[c].send(JSON.stringify(sales));
 }
 notify();
-
+ 
 wsServer.on('request', function(request) {
-	if (!originIsAllowed(request.origin)) {
-		// Make sure we only accept requests from an allowed origin
-		request.reject();
-		console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-		return;
-	}
-	var connection = request.accept('echo-protocol', request.origin);
-	console.log((new Date()) + ' Connection accepted.');
+    if (!originIsAllowed(request.origin)) {
+      request.reject();  // Make sure we only accept requests from an allowed origin
+      console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
+      return;
+    }
+    var connection = request.accept('echo-protocol', request.origin);
+    console.log((new Date()) + ' Connection accepted.');
 
-	requestRegister.push(connection);
+    requestRegister.push(connection);
+    console.log("Connection on request: " + connection.remoteAddress);
 
-	connection.on('close', function(reasonCode, description) {
-		//requestRegister = [ ];
-		console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
-	});
+    connection.on('close', function(reasonCode, description) {
+        console.log("Connection on close: " + connection.remoteAddress);
+        //Try to solve bug on disconnection
+        //requestRegister = [ ];
+        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+    });
 });
 
 //CLient implementation
