@@ -99,7 +99,7 @@ var buildWsClient = function(){
 				console.log("saleValue is: " + saleValue);
 				var test = 1 + +saleValue;
 				console.log("test is: " + test);
-				var actualIncome = salesRegister[countryCode];
+				var actualIncome = salesRegister[countryCode] || 0;
 				console.log("!!Actual income is: " + actualIncome);
 				salesRegister[countryCode] = +actualIncome + +saleValue;
 				console.log("!!Now actual income is: " + salesRegister[countryCode]);
