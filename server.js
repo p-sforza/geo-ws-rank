@@ -27,7 +27,7 @@ requestRegister = [ ];
 function notify() {
 	console.log((new Date()) + ' Object to send: ' + JSON.stringify(salesRegister));
 	for(c in requestRegister) 
-        requestRegister[c].send(JSON.stringify(sales));
+        requestRegister[c].send(JSON.stringify(salesRegister));
 }
 notify();
  
