@@ -31,9 +31,10 @@ function notify() {
 	var delay       = Math.round((Math.random() * 2) + 2)*1000;
 	for(c in requestRegister) 
         requestRegister[c].send(JSON.stringify(salesRegister));
-        setTimeout(notify, delay);
+        //setTimeout(notify, delay);
+	    notify();
+
 }
-notify();
  
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
