@@ -31,7 +31,7 @@ function notify() {
 	var delay       = Math.round((Math.random() * 2) + 2)*10;
 	for(c in requestRegister) 
         requestRegister[c].send(JSON.stringify(salesRegister));
-        setTimeout(notify, delay);
+        //setTimeout(notify, delay);
 }
 notify();
  
