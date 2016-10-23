@@ -1,7 +1,7 @@
 var WebSocketServer = require('websocket').server;
 var WebSocketClient = require('websocket').client;
 var http = require('http');
-var url = "ws://geo-ws-rand.osd.svc:8080";
+var url = "ws://geo-ws-rand.osd-demo-1.svc:8080";
 var client;
 var salesRegister = {};
 
